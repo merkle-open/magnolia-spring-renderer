@@ -71,20 +71,57 @@ import com.machinezoo.noexception.Exceptions;
 import com.merkle.oss.magnolia.renderer.spring.DispatcherServletProvider;
 
 public class SpringRendererDispatcherServletProvider implements DispatcherServletProvider {
-    private final DispatcherServlet dispatcherServlet;
+    private final Lazy<DispatcherServlet> dispatcherServletProvider;
 
     @Inject
     public SpringRendererDispatcherServletProvider() {
-        dispatcherServlet = Components.newInstance(DispatcherServlet.class);
-        dispatcherServlet.setContextConfigLocation(SpringRendererServletConfiguration.class.getName());
-        dispatcherServlet.setContextClass(AnnotationConfigWebApplicationContext.class);
-        Exceptions.wrap().run(() -> dispatcherServlet.init(new CustomServletConfig("springRenderer", Components.getComponent(ServletContext.class), Collections.emptyMap())));
+        dispatcherServletProvider = Lazy.of(() -> {
+            dispatcherServlet = Components.newInstance(DispatcherServlet.class);
+            dispatcherServlet.setContextConfigLocation(SpringRendererServletConfiguration.class.getName());
+            dispatcherServlet.setContextClass(AnnotationConfigWebApplicationContext.class);
+            Exceptions.wrap().run(() -> dispatcherServlet.init(new CustomServletConfig("springRenderer", Components.getComponent(ServletContext.class), Collections.emptyMap())));
+            return dispatcherServlet;
+        });
     }
 
     @Override
     public DispatcherServlet get() {
-        return dispatcherServlet;
+        return dispatcherServletProvider.get();
     }
+}
+```
+
+Create WebApplication/Root context
+```java
+import info.magnolia.module.ModuleLifecycle;
+import info.magnolia.module.ModuleLifecycleContext;
+import info.magnolia.objectfactory.Components;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.web.context.ConfigurableWebApplicationContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+
+
+public class SampleWebAppModule implements ModuleLifecycle {
+	private final ContextLoader contextLoader = new ContextLoader() {
+		@Override
+		protected void customizeContext(final ServletContext servletContext, final ConfigurableWebApplicationContext applicationContext) {
+			applicationContext.setConfigLocations(RootContextConfiguration.class.getName());
+		}
+		@Override
+		protected Class<?> determineContextClass(final ServletContext servletContext) {
+			return AnnotationConfigWebApplicationContext.class;
+		}
+	};
+	public void start(final ModuleLifecycleContext moduleLifecycleContext) {
+		contextLoader.initWebApplicationContext(Components.getComponent(ServletContext.class));
+	}
+	@Override
+	public void stop(final ModuleLifecycleContext moduleLifecycleContext) {
+		contextLoader.closeWebApplicationContext(Components.getComponent(ServletContext.class));
+	}
 }
 ```
 
