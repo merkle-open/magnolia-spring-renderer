@@ -47,9 +47,14 @@ public class MagnoliaTemplateView extends AbstractTemplateView {
 
     public static class Resolver extends AbstractTemplateViewResolver {
         private final Class<? extends Renderer> rendererClass;
+        private final String contentType;
 
         public Resolver(final Class<? extends Renderer> rendererClass) {
+            this(rendererClass, "text/html;charset=UTF-8");
+        }
+        public Resolver(final Class<? extends Renderer> rendererClass, final String contentType) {
             this.rendererClass = rendererClass;
+            this.contentType = contentType;
             setViewClass(requiredViewClass());
         }
 
@@ -60,7 +65,9 @@ public class MagnoliaTemplateView extends AbstractTemplateView {
 
         @Override
         protected AbstractUrlBasedView instantiateView() {
-            return (getViewClass() == MagnoliaTemplateView.class ? new MagnoliaTemplateView(Components.getComponent(rendererClass)) : super.instantiateView());
+            final AbstractUrlBasedView templateView = getViewClass() == MagnoliaTemplateView.class ? new MagnoliaTemplateView(Components.getComponent(rendererClass)) : super.instantiateView();
+            templateView.setContentType(contentType);
+            return templateView;
         }
     }
 }

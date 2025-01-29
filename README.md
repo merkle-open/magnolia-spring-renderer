@@ -47,7 +47,7 @@ public class SpringRendererServletConfiguration extends WebMvcConfigurationSuppo
 
     @Bean
     public MagnoliaTemplateView.Resolver viewResolver() {
-        return new MagnoliaTemplateView.Resolver(FreemarkerRenderer.class);
+        return new MagnoliaTemplateView.Resolver(FreemarkerRenderer.class, "text/html;charset=UTF-8");
     }
     
     ...
