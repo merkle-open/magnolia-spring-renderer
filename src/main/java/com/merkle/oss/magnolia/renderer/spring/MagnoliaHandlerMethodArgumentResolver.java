@@ -88,7 +88,7 @@ public class MagnoliaHandlerMethodArgumentResolver implements HandlerMethodArgum
         final Class<?>[] parameterTypes = methodParameter.getMethod().getParameterTypes();
         for (int i = methodParameter.getParameterIndex() + 1; i < parameterTypes.length; i++) {
             final Class<?> parameterType = parameterTypes[i];
-            if (parameterType.equals(clazz)) {
+            if (clazz.isAssignableFrom(parameterType)) {
                 return true;
             }
         }
