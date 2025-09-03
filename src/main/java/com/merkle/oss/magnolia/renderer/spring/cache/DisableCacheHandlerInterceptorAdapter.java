@@ -3,8 +3,8 @@ package com.merkle.oss.magnolia.renderer.spring.cache;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +16,8 @@ public class DisableCacheHandlerInterceptorAdapter implements AsyncHandlerInterc
 
 	@Override
 	public void afterCompletion(final HttpServletRequest request, final HttpServletResponse response, final Object handler, final Exception ex) {
-		if (handler instanceof HandlerMethod) {
-			getAnnotation((HandlerMethod) handler).filter(disableCache -> evaluate(disableCache, request)).ifPresent(disableCache -> {
+		if (handler instanceof HandlerMethod method) {
+			getAnnotation(method).filter(disableCache -> evaluate(disableCache, request)).ifPresent(disableCache -> {
 				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=" + disableCache.ttlInSeconds());
 				response.setHeader("Pragma", "no-cache");
 			});
