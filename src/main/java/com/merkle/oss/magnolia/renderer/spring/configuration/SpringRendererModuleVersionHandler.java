@@ -7,7 +7,7 @@ import info.magnolia.module.model.Version;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class SpringRendererModuleVersionHandler extends DefaultModuleVersionHandler {
 	private final InstallSpringRendererSetupTask installSpringRendererSetupTask;

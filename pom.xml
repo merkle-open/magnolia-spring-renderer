@@ -6,7 +6,7 @@
 
   <groupId>com.merkle.oss.magnolia</groupId>
   <artifactId>magnolia-spring-renderer</artifactId>
-  <version>0.0.5-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
 
   <name>${project.artifactId}</name>
   <description>The spring renderer module makes the Spring-Framework available for Magnolia</description>
@@ -37,22 +37,22 @@
 
   <properties>
     <!--	mvn versions:display-property-updates	-->
-    <magnolia.version>6.3.4</magnolia.version>
-    <spring.version>5.3.39</spring.version> <!-- Since magnolia is not supporting tomcat10 we have to stick with spring 5.xx since 6.xx depends on jakarta servlet dependencies instead of javax servlet -->
-    <jsr305.nullable.version>3.0.2</jsr305.nullable.version>
+    <magnolia.version>6.4.0</magnolia.version>
+    <spring.version>6.2.10</spring.version>
     <!--Test dependency versions-->
-    <junit.version>5.11.4</junit.version>
-    <mockito.version>5.15.2</mockito.version>
+    <junit.version>5.13.4</junit.version>
+    <mockito.version>5.19.0</mockito.version>
 
     <!-- Maven Plugins -->
-    <mvn.compiler.plugin.version>3.13.0</mvn.compiler.plugin.version>
-    <mvn.source.plugin.version>3.3.0</mvn.source.plugin.version>
-    <mvn.javadoc.version>3.11.2</mvn.javadoc.version>
+    <mvn.compiler.plugin.version>3.14.0</mvn.compiler.plugin.version>
+    <mvn.source.plugin.version>3.3.1</mvn.source.plugin.version>
+    <mvn.javadoc.version>3.11.3</mvn.javadoc.version>
     <mvn.gpg.plugin.version>3.2.5</mvn.gpg.plugin.version>
     <mvn.sonatype.publishing.plugin.version>0.5.0</mvn.sonatype.publishing.plugin.version>
-    <mvn.surefire.plugin.version>3.5.2</mvn.surefire.plugin.version>
+    <mvn.surefire.plugin.version>3.5.3</mvn.surefire.plugin.version>
 
     <javaVersion>17</javaVersion>
+    <maven.version.ignore>.*-M.*,.*-alpha.*,.*-beta.*,.*-rc.*,.*-RC.*</maven.version.ignore>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -70,11 +70,6 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
         <version>${spring.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>${jsr305.nullable.version}</version>
       </dependency>
 
       <!-- TESTING DEPENDENCIES -->
@@ -107,6 +102,11 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>5.4.4</version>
+    </dependency>
 
 
 
@@ -116,19 +116,14 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>javax.servlet.jsp-api</artifactId>
+      <groupId>jakarta.servlet.jsp</groupId>
+      <artifactId>jakarta.servlet.jsp-api</artifactId>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
     </dependency>
   </dependencies>
 
@@ -139,8 +134,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${mvn.compiler.plugin.version}</version>
         <configuration>
-          <source>${javaVersion}</source>
-          <target>${javaVersion}</target>
+          <release>17</release>
         </configuration>
       </plugin>
       <plugin>
