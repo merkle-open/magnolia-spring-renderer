@@ -172,6 +172,17 @@
         <version>${mvn.surefire.plugin.version}</version>
       </plugin>
     </plugins>
+
+    <!-- default resources configuration which will filter your module descriptors -->
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 
   <repositories>
