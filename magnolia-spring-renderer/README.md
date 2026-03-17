@@ -5,7 +5,7 @@ Recommended to be used with [dynamic builders modules](https://github.com/merkle
 
 ## Requirements
 * Java 17
-* Magnolia >= 6.3
+* Magnolia >= 6.4
 
 ## Setup
 

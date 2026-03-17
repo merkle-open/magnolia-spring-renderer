@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.merkle.oss.magnolia</groupId>
-  <artifactId>magnolia-spring-renderer</artifactId>
+  <artifactId>magnolia-spring</artifactId>
   <version>0.1.2-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
-  <description>The spring renderer module makes the Spring-Framework available for Magnolia</description>
   <url>https://github.com/namics/magnolia-spring-renderer</url>
 
   <licenses>
@@ -28,6 +28,9 @@
       <organizationUrl>https://merkleinc.ch</organizationUrl>
     </developer>
   </developers>
+  <modules>
+    <module>magnolia-spring-renderer</module>
+  </modules>
 
   <scm>
     <url>https://github.com/namics/magnolia-spring-renderer</url>
@@ -87,45 +90,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <dependencies>
-    <!-- Magnolia -->
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-rendering</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>5.4.4</version>
-    </dependency>
-
-
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.servlet.jsp</groupId>
-      <artifactId>jakarta.servlet.jsp-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
