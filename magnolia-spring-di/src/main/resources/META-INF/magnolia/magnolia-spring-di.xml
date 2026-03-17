@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+    <name>magnolia-spring-di</name>
+    <displayName>Magnolia spring-di</displayName>
+    <description>The spring di module provides DI integration with magnolia guice</description>
+    <version>${project.version}</version>
+
+    <components>
+        <id>main</id>
+        <component>
+            <type>info.magnolia.ui.framework.ioc.MagnoliaUiGuiceComponentProviderFactory</type>
+            <implementation>com.merkle.oss.magnolia.di.bridge.SpringBridgeMagnoliaUiGuiceComponentProviderFactory</implementation>
+        </component>
+    </components>
+
+    <components>
+        <id>system</id>
+        <component>
+            <type>info.magnolia.cms.beans.config.ConfigLoader</type>
+            <implementation>com.merkle.oss.magnolia.di.bridge.SpringBridgeConfigLoader</implementation>
+        </component>
+    </components>
+
+    <dependencies>
+        <dependency>
+            <name>core</name>
+        </dependency>
+        <dependency>
+            <name>ui-framework-core</name>
+        </dependency>
+    </dependencies>
+</module>

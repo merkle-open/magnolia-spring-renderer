@@ -30,6 +30,7 @@
   </developers>
   <modules>
     <module>magnolia-spring-renderer</module>
+    <module>magnolia-spring-di</module>
   </modules>
 
   <scm>
