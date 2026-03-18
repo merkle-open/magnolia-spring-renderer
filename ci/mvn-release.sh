@@ -4,11 +4,6 @@ setVersion(){
   mvn versions:set -DnewVersion=$1 versions:commit --no-transfer-progress
 }
 
-function setVersionInReadme() {
-  sed -i -e "s|<version>[0-9A-Za-z._-]\{1,\}</version>|<version>$1</version>|g" $2 && rm -f $2-e
-}
-export -f setVersionInReadme
-
 CURRENT_VERSION=`xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml`
 
 if [[ $CURRENT_VERSION == *-SNAPSHOT ]]; then
@@ -35,7 +30,7 @@ if [[ $CURRENT_VERSION == *-SNAPSHOT ]]; then
 	git commit -a -m "Release $NEW_VERSION: set main to new release version"
 
 	echo "Update version in README.md"
-	find . -name 'README.md' -exec sh -c "setVersionInReadme ${NEW_VERSION} \"{}\"" \;
+	find . -name 'README.md' -exec sh -c "sed -i -e 's|<version>[0-9A-Za-z._-]\{1,\}</version>|<version>${NEW_VERSION}</version>|g' \"{}\" && rm -f \"{}\"-e" \;
 	git commit -a -m "Release $NEW_VERSION: Update README.md"
 
 	echo "create tag for new release"
