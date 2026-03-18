@@ -10,6 +10,7 @@
   </parent>
 
   <artifactId>magnolia-spring-di</artifactId>
+  <name>${artifactId}</name>
   <description>The spring di module provides DI integration with magnolia guice</description>
 
   <dependencies>

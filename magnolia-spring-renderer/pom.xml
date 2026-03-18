@@ -10,6 +10,7 @@
   </parent>
 
   <artifactId>magnolia-spring-renderer</artifactId>
+  <name>${artifactId}</name>
   <description>The spring renderer module makes the Spring-Framework available for Magnolia</description>
 
   <dependencies>

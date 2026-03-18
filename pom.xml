@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
+  <description>Magnolia spring integration</description>
   <url>https://github.com/namics/magnolia-spring-renderer</url>
 
   <licenses>
