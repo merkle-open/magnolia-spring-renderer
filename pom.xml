@@ -43,7 +43,7 @@
   <properties>
     <!--	mvn versions:display-property-updates	-->
     <magnolia.version>6.4.3</magnolia.version>
-    <spring.version>7.0.6</spring.version>
+    <spring.version>7.0.7</spring.version>
     <!--Test dependency versions-->
     <junit.version>6.0.3</junit.version>
     <mockito.version>5.23.0</mockito.version>
