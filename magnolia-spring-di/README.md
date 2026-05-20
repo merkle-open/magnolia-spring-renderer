@@ -13,7 +13,7 @@ Provides a bridge between Spring DI and Magnolia/Guice. Collection bindings are 
 <dependency>
     <groupId>com.merkle.oss.magnolia</groupId>
     <artifactId>magnolia-spring-di</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
 </dependency>
 ```
 
