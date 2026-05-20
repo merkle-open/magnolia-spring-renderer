@@ -42,10 +42,10 @@
 
   <properties>
     <!--	mvn versions:display-property-updates	-->
-    <magnolia.version>6.4.3</magnolia.version>
-    <spring.version>7.0.6</spring.version>
+    <magnolia.version>6.4.6</magnolia.version>
+    <spring.version>7.0.7</spring.version>
     <!--Test dependency versions-->
-    <junit.version>6.0.3</junit.version>
+    <junit.version>6.1.0</junit.version>
     <mockito.version>5.23.0</mockito.version>
 
     <!-- Maven Plugins -->
