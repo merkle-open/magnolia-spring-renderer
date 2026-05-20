@@ -54,4 +54,14 @@ public class SpringRendererHttpServletRequestWrapper extends HttpServletRequestW
                 return super.getAttribute(name);
         }
     }
+
+    public static class Factory {
+        public SpringRendererHttpServletRequestWrapper create(
+                final HttpServletRequest request,
+                final RenderingContext renderingContext,
+                final Map<String, Object> contextObjects
+        ) {
+            return new SpringRendererHttpServletRequestWrapper(request, renderingContext, contextObjects);
+        }
+    }
 }
