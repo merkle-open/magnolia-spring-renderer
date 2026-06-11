@@ -20,6 +20,7 @@ Recommended to be used with [dynamic builders modules](https://github.com/merkle
 
 ### Spring dispatcher-servlet
 Create config:
+
 ```java
 import info.magnolia.rendering.renderer.FreemarkerRenderer;
 
@@ -28,6 +29,7 @@ import java.util.List;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
+import com.merkle.oss.magnolia.renderer.spring.MagnoliaDelegatingSpringLocaleResolver;
 import com.merkle.oss.magnolia.renderer.spring.MagnoliaHandlerMethodArgumentResolver;
 import com.merkle.oss.magnolia.renderer.spring.MagnoliaTemplateView;
 import com.merkle.oss.magnolia.renderer.spring.cache.DisableCacheHandlerInterceptorAdapter;
@@ -48,6 +50,11 @@ public class SpringRendererServletConfiguration extends WebMvcConfigurationSuppo
     @Bean
     public MagnoliaTemplateView.Resolver viewResolver() {
         return new MagnoliaTemplateView.Resolver(FreemarkerRenderer.class, "text/html;charset=UTF-8");
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new MagnoliaDelegatingSpringLocaleResolver();
     }
     
     ...
