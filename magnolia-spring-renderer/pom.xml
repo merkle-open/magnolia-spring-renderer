@@ -28,9 +28,8 @@
       <artifactId>magnolia-templating</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>5.4.4</version>
+      <groupId>info.magnolia.site</groupId>
+      <artifactId>magnolia-site</artifactId>
     </dependency>
 
     <dependency>

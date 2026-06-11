@@ -7,6 +7,8 @@ import info.magnolia.cms.security.User;
 import info.magnolia.context.Context;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.context.WebContext;
+import info.magnolia.module.site.Site;
+import info.magnolia.module.site.SiteManager;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.template.AreaDefinition;
@@ -26,6 +28,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class MagnoliaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
     private final Set<Class<?>> supportedParameterTypes = Set.of(
             Node.class,
+            Site.class,
             TemplateDefinition.class,
             AreaDefinition.class,
             AggregationState.class,
@@ -35,6 +38,8 @@ public class MagnoliaHandlerMethodArgumentResolver implements HandlerMethodArgum
             MgnlUser.class,
             Channel.class
     );
+
+    private final SiteManager siteManager = Components.getComponent(SiteManager.class);
 
     @Override
     public boolean supportsParameter(final MethodParameter parameter) {
@@ -51,17 +56,20 @@ public class MagnoliaHandlerMethodArgumentResolver implements HandlerMethodArgum
             final WebDataBinderFactory binderFactory
     ) {
         if (methodParameter.getParameterType().isAssignableFrom(Node.class)) {
-            final RenderingContext renderingContext = Components.getComponent(RenderingContext.class);
+            final RenderingContext renderingContext = getRenderingContext();
             if (hasSubsequentParametersOfType(methodParameter, Node.class)) {
                 return renderingContext.getMainContent();
             }
             return Optional.ofNullable(renderingContext.getCurrentContent()).orElseGet(renderingContext::getMainContent);
         }
+        if (methodParameter.getParameterType().isAssignableFrom(Site.class)) {
+            return siteManager.getAssignedSite(getRenderingContext().getMainContent());
+        }
         if (methodParameter.getParameterType().isAssignableFrom(TemplateDefinition.class)) {
-            return Components.getComponent(RenderingContext.class).getRenderableDefinition();
+            return getRenderingContext().getRenderableDefinition();
         }
         if (methodParameter.getParameterType().isAssignableFrom(AreaDefinition.class)) {
-            return Components.getComponent(RenderingContext.class).getRenderableDefinition();
+            return getRenderingContext().getRenderableDefinition();
         }
         if (methodParameter.getParameterType().isAssignableFrom(AggregationState.class)) {
             return MgnlContext.getAggregationState();
@@ -82,6 +90,10 @@ public class MagnoliaHandlerMethodArgumentResolver implements HandlerMethodArgum
             return MgnlContext.getAggregationState().getChannel();
         }
         return null;
+    }
+
+    private RenderingContext getRenderingContext() {
+        return Components.getComponent(RenderingContext.class);
     }
 
     private boolean hasSubsequentParametersOfType(final MethodParameter methodParameter, final Class<?> clazz) {
