@@ -14,7 +14,7 @@ Recommended to be used with [dynamic builders modules](https://github.com/merkle
 <dependency>
     <groupId>com.merkle.oss.magnolia</groupId>
     <artifactId>magnolia-spring-renderer</artifactId>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
 </dependency>
 ```
 
